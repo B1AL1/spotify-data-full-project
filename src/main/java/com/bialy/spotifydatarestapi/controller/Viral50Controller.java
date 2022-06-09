@@ -5,8 +5,10 @@ import com.bialy.spotifydatarestapi.service.Viral50Service;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("api/v1/viral50")
 @AllArgsConstructor
@@ -14,6 +16,7 @@ public class Viral50Controller {
     private final Viral50Service viral50Service;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Page<Viral50> fetchAllViral50(@RequestParam(required = false) Integer page)
     {
         int pageNumber = page != null && page > 0 ? page : 1;
@@ -21,6 +24,7 @@ public class Viral50Controller {
     }
 
     @GetMapping("/{region}")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public Page<Viral50> fetchAllViral50ByRegion(@PathVariable String region,
                                                  @RequestParam(required = false) Integer page,
                                                  @RequestParam(required = false) Sort.Direction sortDate,

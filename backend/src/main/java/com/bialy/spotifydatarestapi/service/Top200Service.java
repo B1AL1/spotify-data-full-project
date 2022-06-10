@@ -14,11 +14,11 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class Top200Service {
-    private static final int PAGE_SIZE = 200;
+    private static final int PAGE_SIZE = 50;
     private final Top200Repository top200Repository;
 
-    public Page<Top200> getAllTop200(int page) {
-        return top200Repository.findAll(PageRequest.of(page,PAGE_SIZE));
+    public List<Top200> getAllTop200() {
+        return top200Repository.findAll();
     }
 
     public Page<Top200> getAllTop200ByRegionSortByDateAndRank(String region, int page, Sort.Direction sortDate, Sort.Direction sortRank) {

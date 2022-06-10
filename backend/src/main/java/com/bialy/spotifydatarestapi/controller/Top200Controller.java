@@ -8,7 +8,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+import java.util.List;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/top200")
 @AllArgsConstructor
@@ -17,10 +19,9 @@ public class Top200Controller {
 
     @GetMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public Page<Top200> fetchAllTop200(@RequestParam(required = false) Integer page)
+    public List<Top200> fetchAllTop200()
     {
-        int pageNumber = page != null && page > 0 ? page : 1;
-        return top200Service.getAllTop200(pageNumber - 1);
+        return top200Service.getAllTop200();
     }
 
     @GetMapping("/{region}")

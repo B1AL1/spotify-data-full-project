@@ -8,7 +8,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+import java.util.List;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/v1/viral50")
 @AllArgsConstructor
@@ -17,10 +19,9 @@ public class Viral50Controller {
 
     @GetMapping
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public Page<Viral50> fetchAllViral50(@RequestParam(required = false) Integer page)
+    public List<Viral50> fetchAllViral50()
     {
-        int pageNumber = page != null && page > 0 ? page : 1;
-        return viral50Service.getAllViral50(pageNumber - 1);
+        return viral50Service.getAllViral50();
     }
 
     @GetMapping("/{region}")

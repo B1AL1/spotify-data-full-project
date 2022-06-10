@@ -16,8 +16,8 @@ import java.util.List;
 public class Viral50Service {
     private static final int PAGE_SIZE = 50;
     private final Viral50Respository viral50Respository;
-    public Page<Viral50> getAllViral50(int page) {
-        return viral50Respository.findAll(PageRequest.of(page,PAGE_SIZE));
+    public List<Viral50> getAllViral50() {
+        return viral50Respository.findAll();
     }
 
     public Page<Viral50> getAllViral50ByRegionSortByDateAndRank(String region, int page, Sort.Direction sortDate, Sort.Direction sortRank) {
